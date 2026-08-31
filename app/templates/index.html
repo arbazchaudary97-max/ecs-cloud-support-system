@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+   <head>  
+    <title>Cloud Suport Ticket System</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> 
+   </head>
+    <body>
+     <h1>Cloud-Support-Ticket-System</h1>
+     <p>Manage Internal Support Request</p>
+     <a href="/new-ticket">New Ticket</a>
+    <table>
+    <caption>Current Support Tickets</caption>      
+    <tr>
+        <th>User</th>
+        <th>Ticket-ID</th>
+        <th>Summary</th> 
+        <th>Status</th>
+        <th>Category</th> 
+        <th>Priority</th>  
+        <th>Date</th>
+        <th>Owner</th>  
+    </tr>
+
+     {% for ticket in tickets %}
+    <tr>
+         <td> <a href="{{ url_for('view_ticket', ticket_id=ticket['Ticket ID']) }}">
+             {{ ticket["Ticket ID"] }}</a></td>
+         <td>{{ ticket["Name"] }}</td>
+         <td> {{ ticket["Summary"] }}</td>
+         <td>{{ ticket["Status"] }}</td>
+         <td>{{ ticket["Category"] }}</td> 
+         <td> {{ ticket["Priority"] }}</td>
+         <td>{{ ticket["Date"] }}</td>
+         <td>{{ ticket["Owner"] }}</td>
+    </tr>
+    {% endfor %}
+
+    </table>
+    </body>
+</html>

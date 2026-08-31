@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+   <head>  
+    <title><New-Ticket></title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+   </head>
+    <body>
+     <h1><Ticket-details></h1>
+     <p><Please-enter-ticket-details></p>
+ <form action="/new-ticket" method="POST">      
+        
+        <label for="Name">Name:</label><br>
+        <input type="text" id="Name" Name="Name"><br>
+
+        <label for="Email">Email:</label><br>
+        <input type="email" id="Email" Name="Email"><br><br>
+
+        <label for="Summary">Summary:</label><br>
+        <textarea name="Summary" rows="4" cols="50"></textarea><br><br>
+
+        <label for="Category">Category:</label><br>
+        <select id="Category" name="Category">
+        <option value="Hardware">Hardware</option>
+        <option value="Network">Network</option>
+        <option value="Email">Email</option>
+        </select>
+        <br><br>
+
+        <label for="Priority">Priority:</label><br>
+        <select id="Priority" name="Priority">
+        <option value="High">High</option>
+        <option value="Medium">Medium</option>
+        <option value="Low">Low</option>
+        </select>
+        <br><br>
+
+
+        <label for="Date">Date:</label><br>
+        <input type="date" id="Date" Name="Date"><br><br>
+
+        <input type="Submit" value="Submit">
+        <a href="/">← Back to Tickets</a>
+</form>
+  </body>
+</html>
