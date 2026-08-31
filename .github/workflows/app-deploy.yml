@@ -21,5 +21,31 @@ jobs:
          - name: Configure AWS credentials
            uses: aws-actions/configure-aws-credentials@v4
            with:
-           role-to-assume: arn:aws:iam::YOUR_ACCOUNT_ID:role/github-actions-ecs-role
+           role-to-assume: arn:aws:iam::520900723145:role/github-actions-ecs-role
            aws-region: eu-west-2
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push Docker image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ecs-cloud-support-system
+          IMAGE_TAG: latest
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./app
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+              - name: Deploy to ECS
+        run: |
+          aws ecs update-service \
+            --cluster ecs-v1-cluster \
+            --service ecs-v1-service \
+            --force-new-deployment
+
+      - name: Wait for ECS service to become stable
+        run: |
+          aws ecs wait services-stable \
+            --cluster ecs-v1-cluster \
+            --services ecs-v1-service

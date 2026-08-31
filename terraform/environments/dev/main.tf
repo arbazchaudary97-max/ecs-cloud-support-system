@@ -12,9 +12,9 @@ module "alb" {
   source = "../../modules/alb"
 
   vpc_id                = module.vpc.vpc_id
-  public_subnet_ids      = module.vpc.public_subnet_ids
-  alb_security_group_id  = module.security_groups.alb_security_group_id
-  certificate_arn = module.acm.certificate_arn
+  public_subnet_ids     = module.vpc.public_subnet_ids
+  alb_security_group_id = module.security_groups.alb_security_group_id
+  certificate_arn       = module.acm.certificate_arn
 }
 
 module "ecs" {
@@ -24,6 +24,8 @@ module "ecs" {
   ecs_security_group_id = module.security_groups.ecs_security_group_id
   target_group_arn      = module.alb.target_group_arn
   ecr_image_uri         = "520900723145.dkr.ecr.eu-west-2.amazonaws.com/ecs-cloud-support-system:latest"
+
+  depends_on = [module.alb]
 }
 
 module "acm" {
