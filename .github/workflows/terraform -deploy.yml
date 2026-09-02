@@ -27,7 +27,14 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::520900723145:role/github-actions-terraform-role
           aws-region: eu-west-2
-
+      - name: Verify AWS identity and Route53
+        run: |
+          aws sts get-caller-identity
+          aws route53 list-hosted-zones-by-name \
+            --dns-name ecscloudsupport.com \
+            --query "HostedZones[0].[Id,Name]" \
+            --output text
+            
       - name: Terraform Init
         run: terraform init
 
