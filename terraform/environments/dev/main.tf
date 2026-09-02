@@ -32,7 +32,7 @@ module "acm" {
   source = "../../modules/acm"
 
   domain_name = "ecscloudsupport.com"
-  zone_id     = "Z0834957196OH8NRVSQ2"
+  zone_id = "Z0834957196OH8NRVSQ2"
 }
 
 resource "aws_route53_record" "app" {
