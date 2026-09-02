@@ -37,7 +37,7 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./app
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
-              - name: Deploy to ECS
+      - name: Deploy to ECS
         run: |
           aws ecs update-service \
             --cluster ecs-v1-cluster \
@@ -49,3 +49,5 @@ jobs:
           aws ecs wait services-stable \
             --cluster ecs-v1-cluster \
             --services ecs-v1-service
+
+    
