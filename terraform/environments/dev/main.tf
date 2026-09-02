@@ -28,15 +28,20 @@ module "ecs" {
   depends_on = [module.alb]
 }
 
+data "aws_route53_zone" "main" {
+  name         = "ecscloudsupport.com."
+  private_zone = false
+}
+
 module "acm" {
   source = "../../modules/acm"
 
   domain_name = "ecscloudsupport.com"
-  zone_id = "Z0834957196OH8NRVSQ2"
+  zone_id     = data.aws_route53_zone.main.zone_id
 }
 
 resource "aws_route53_record" "app" {
-  zone_id = "Z0834957196OH8NRVSQ2"
+  zone_id = data.aws_route53_zone.main.zone_id
   name    = "ecscloudsupport.com"
   type    = "A"
 
