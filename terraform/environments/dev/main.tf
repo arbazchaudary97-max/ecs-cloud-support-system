@@ -34,3 +34,15 @@ module "acm" {
   domain_name = "ecscloudsupport.com"
   zone_id     = "Z0834957I96OH8NRVSQ2"
 }
+
+resource "aws_route53_record" "app" {
+  zone_id = "Z08349571960H8NVRSQ2"
+  name    = "ecscloudsupport.com"
+  type    = "A"
+
+  alias {
+    name                   = module.alb.alb_dns_name
+    zone_id                = module.alb.alb_zone_id
+    evaluate_target_health = true
+  }
+}
