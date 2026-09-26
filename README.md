@@ -33,11 +33,6 @@ The main goals of this project were to:
 - Send ECS container logs to Amazon CloudWatch.
 - Provide separate workflows for infrastructure deployment and destruction.
 
-## Architecture
-
-For a detailed architecture diagram, see:
-
-[View the full architecture diagram](architecture/architecture.md)
 
 ## Architecture
 
